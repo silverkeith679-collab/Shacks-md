@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShacksTech MD - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo i {
+            font-size: 3rem;
+            color: #07b34a;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo h1 {
+            color: #07b34a;
+            font-size: 1.8rem;
+        }
+
+        .logo p {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #07b34a;
+            box-shadow: 0 0 0 3px rgba(7, 179, 74, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.75rem;
+            background: #07b34a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 1rem;
+        }
+
+        .btn-login:hover {
+            background: #05a03a;
+        }
+
+        .info {
+            background: #f0fdf4;
+            border-left: 4px solid #07b34a;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .error {
+            color: #e74c3c;
+            background: #fadbd8;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            <h1>ShacksTech MD</h1>
+            <p>Bot Deployment Panel</p>
+        </div>
+
+        <div class="info">
+            <p><strong>👤 Default Username:</strong> silverkeith679-collab</p>
+            <p><strong>🔑 Default Password:</strong> shackstechmd2025</p>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn-login">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </form>
+
+        <div class="footer">
+            <p>🔒 Your account is secure</p>
+            <p>© 2025 ShacksTech MD | Made in Uganda 🇺🇬</p>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+
+            // Simple validation (in production, this would be server-side)
+            const validUsername = 'silverkeith679-collab';
+            const validPassword = 'shackstechmd2025';
+
+            if (username === validUsername && password === validPassword) {
+                localStorage.setItem('username', username);
+                localStorage.setItem('loggedIn', 'true');
+                errorDiv.style.display = 'none';
+                
+                // Redirect to panel
+                window.location.href = 'index.html';
+            } else {
+                errorDiv.textContent = '❌ Invalid username or password';
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        // Check if already logged in
+        window.addEventListener('load', () => {
+            if (localStorage.getItem('loggedIn') === 'true') {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
